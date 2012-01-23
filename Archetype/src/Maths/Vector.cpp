@@ -1,16 +1,16 @@
  
-#include "StdAfx.h"
+#include "Stdafx.h"
 
 #include "Vector.h"
 
 using namespace AT;
 using namespace Maths;
 
-Vector::Vector(void)
+Vector::Vector()
 {
 }
 
 
-Vector::~Vector(void)
-{
-}
+//Vector::~Vector()
+//{
+//}

@@ -51,8 +51,10 @@ public:
     
 #pragma region Drawing
     
-    DLLEXPORT virtual void Draw(const Model::Mesh & mesh, const Maths::Matrix4x4 & World, const Maths::Matrix4x4 & View, const Maths::Matrix4x4 & Projection, Model::ShaderEffect & shader) = 0;
+    //DLLEXPORT virtual void Draw(const Model::Mesh & mesh, const Maths::Matrix4x4 & World, const Maths::Matrix4x4 & View, const Maths::Matrix4x4 & Projection, Model::ShaderEffect & shader) = 0;
     
+	DLLEXPORT virtual void Draw(const Model::Mesh & mesh, const Model::ShaderEffect & shader) = 0;
+
 #pragma endregion
 
 };

@@ -1,5 +1,5 @@
  
-#include "StdAfx.h" 
+#include "stdafx.h" 
 
 #include "GeometryFactory.h"
 #include "SharedFunctions.h"

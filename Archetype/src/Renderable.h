@@ -32,6 +32,9 @@ public:
 
 	// Standard drawing
 	DLLEXPORT virtual void Draw(const Maths::Matrix4x4 & View, const Maths::Matrix4x4 & Projection) {};
+
+	// Drawing with pre-parameterised shader
+	DLLEXPORT virtual void Draw(const Model::ShaderEffect & shader) {};
     
     // Drawing with shaders
     DLLEXPORT virtual void Draw(const Maths::Matrix4x4 & World, const Maths::Matrix4x4 & View, const Maths::Matrix4x4 & Projection, Model::ShaderEffect & shader) {};

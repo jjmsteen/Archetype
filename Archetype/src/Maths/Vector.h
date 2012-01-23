@@ -23,7 +23,7 @@ namespace Maths
 
 		Vector();
 
-		virtual ~Vector();
+		//virtual ~Vector();
 		
 	};
 

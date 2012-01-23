@@ -1,5 +1,5 @@
  
-#include "StdAfx.h"
+#include "stdafx.h"
 
 
 #include "Mesh.h"
@@ -39,6 +39,15 @@ void Mesh::Draw(const Maths::Matrix4x4 & World, const Maths::Matrix4x4 & View, c
         
         
 		// Draw using the renderer bridge
-		renderer->Draw(*this, World, View, Projection, shader);
+		renderer->Draw(*this, shader);
+	}
+}
+
+void Mesh::Draw(const Model::ShaderEffect & shader) 
+{
+	if (renderer)
+	{
+		// Draw using the renderer bridge
+		renderer->Draw(*this, shader);
 	}
 }

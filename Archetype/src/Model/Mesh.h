@@ -90,6 +90,8 @@ public:
 
 	DLLEXPORT virtual void Draw(const Maths::Matrix4x4 & World, const Maths::Matrix4x4 & View, const Maths::Matrix4x4 & Projection, ShaderEffect & shader);
 
+	DLLEXPORT virtual void Draw(const ShaderEffect & shader);
+
 #pragma endregion
 };
 

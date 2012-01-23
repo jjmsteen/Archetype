@@ -1,5 +1,5 @@
 
-#include "StdAfx.h" 
+#include "stdafx.h" 
 
 #include "Vector2.h"
 #include <cmath>
