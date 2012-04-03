@@ -42,6 +42,7 @@ VertexBuffer::VertexBuffer(const std::vector<Vertex*> & vertexList, const std::v
 
 		// Delete the current vertex's array after its values have been copied
 		delete[] currentVertArray;
+
 	}
 
 	// Create an index buffer based on the length of the index list
