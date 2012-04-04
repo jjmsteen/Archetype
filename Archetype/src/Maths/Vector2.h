@@ -51,5 +51,21 @@ public:
 
 };
 
+#pragma region Non-Member Operator Overloads
+
+// Overloaded * for a vector and a scalar
+DLLEXPORT Vector2 operator* (const Vector2 & v, float scale);
+
+// Overloaded / for a vector and a scalar
+DLLEXPORT Vector2 operator/ (const Vector2 & v, float scale);
+
+// Overloaded + operator for two vectors
+DLLEXPORT Vector2 operator+ (const Vector2 & a, const Vector2 & b);
+
+// Overloaded - operator (does opposite of +)
+DLLEXPORT Vector2 operator- (const Vector2 & a, const Vector2 & b);
+
+#pragma endregion
+
 }
 }

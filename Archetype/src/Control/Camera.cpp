@@ -8,6 +8,8 @@ using namespace AT;
 using namespace Control;
 using namespace Bounding;
 
+static const float KF_SINGULARITY_OFFSET = 0.02f;
+
 Camera::Camera(void)
 	: eyePosition(Maths::Vector3()), focusPosition(Maths::Vector3(0,0,-1)), worldUp(Maths::Vector3::Up()), zNear(0.1f), zFar(1000.0f)
 {
@@ -154,11 +156,13 @@ void Camera::CalculateView()
 
 	// Get the right (side) vector
 	side = Maths::Vector3::Cross(forward, worldUp);
+	side.Normalise();
 
 	// Get the camera up
 	cameraUp = Maths::Vector3::Cross(side, forward);
+	cameraUp.Normalise();
 
-	view = Maths::Matrix4x4::CreateLookAt(eyePosition, focusPosition, worldUp);
+	view = Maths::Matrix4x4::CreateLookAt(eyePosition, focusPosition, cameraUp);
 
 }
 
@@ -212,12 +216,36 @@ void Camera::Orbit(float yawRadians, float pitchRadians)
     // Remove the view offset
     eyePosition -= focusPosition;
     
-    // Rotate the focus position around the 'eye' origin
-    eyePosition = Maths::Matrix4x4::Transform(Maths::Matrix4x4::CreateRotation(yawRadians, pitchRadians, 0.0f), eyePosition);
+	// Create a rotation matrix
+	Maths::Matrix4x4 rotation = Maths::Matrix4x4::CreateRotation(cameraUp, yawRadians);
+    
+    // Rotate the eye position around the 'focus' origin
+    eyePosition = Maths::Matrix4x4::Transform(rotation, eyePosition);
+    
+    // Also rotate the side vector
+    side = Maths::Matrix4x4::Transform(rotation, side);
+    
+	// Create a new rotation matrix around the altered side vector for pitch
+	rotation = Maths::Matrix4x4::CreateRotation(side, pitchRadians);
+    
+	// Apply this rotation to the eye position and the forward vector
+	Maths::Vector3 lNewEyePos = Maths::Matrix4x4::Transform(rotation, eyePosition);
+	Maths::Vector3 lNewForward = -lNewEyePos;
+	lNewForward.Normalise();
+
+	// Get the dot between the world up and the new forward to see how close we are to the singularity
+	float lUpForwardDot = Maths::Vector3::Dot(worldUp, lNewForward);
+
+	// If we're not close to the singularities
+	if ((1.0f - fabs(lUpForwardDot)) > KF_SINGULARITY_OFFSET)
+	{
+		eyePosition = lNewEyePos;
+	}
     
     // Reintroduce the view offset
     eyePosition += focusPosition;
     
     // Recalculate the view matrix
     this->CalculateView();
+
 }
