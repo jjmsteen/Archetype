@@ -56,6 +56,8 @@ public:
 	// Get the 'volume' or spatial displacement of the volume
 	DLLEXPORT virtual float GetVolume() const = 0;
 
+	DLLEXPORT virtual AT::Maths::Vector3 GetCentroid() const = 0;
+
 #pragma region Abstract Intersection Methods
 
 	DLLEXPORT virtual IntersectResult Intersects(const BoundingVolume * bv) const;

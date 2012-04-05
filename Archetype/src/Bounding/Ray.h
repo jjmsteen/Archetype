@@ -12,27 +12,27 @@ namespace Bounding
 class Ray
 {
 	// Position of the origin of the ray
-	Maths::Vector3 origin;
+	Maths::Vector3 mOrigin;
 
-	// The direction of the ray (normalised on construction)
-	Maths::Vector3 direction;
-
-	// The length of the ray. Zero or negative
-	// length defines an infinite ray
-	float length;
+	// The end of the ray
+	Maths::Vector3 mEnd;
 
 
 public:
 
-	DLLEXPORT Ray(const Maths::Vector3 & origin = Maths::Vector3(), const Maths::Vector3 & direction = Maths::Vector3(0,0,-1), float length = 0);
+	DLLEXPORT Ray(const Maths::Vector3 & lOrigin = Maths::Vector3(), const Maths::Vector3 & lEnd = Maths::Vector3(0,0,-1));
 
 	DLLEXPORT ~Ray(void);
 
 #pragma region Getters and Setters
 
-	DLLEXPORT const Maths::Vector3 & GetOrigin() const;
+	DLLEXPORT Maths::Vector3 GetRayVector() const;
 
-	DLLEXPORT const Maths::Vector3 & GetDirection() const;
+	DLLEXPORT const Maths::Vector3 & GetOrigin() const { return mOrigin; }
+
+	DLLEXPORT const Maths::Vector3 & GetEnd() const { return mEnd; }
+
+	DLLEXPORT Maths::Vector3 GetDirection() const;
 
 	DLLEXPORT float GetLength() const;
 

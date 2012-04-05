@@ -22,7 +22,7 @@ class BoundingFrustum :
 	Plane zNear;
 	Plane zFar;
 
-	// An array of the six planes (so looping is possible)
+	// An array of pointers to the six planes (so looping is possible)
 	Plane * planes[6];
 
 protected:
@@ -68,6 +68,8 @@ public:
 	DLLEXPORT const Plane & GetFar() const { return zFar; }
 
 	DLLEXPORT virtual float GetVolume() const;
+
+	DLLEXPORT virtual AT::Maths::Vector3 GetCentroid() const;
 
 #pragma endregion
 

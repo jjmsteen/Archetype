@@ -48,6 +48,8 @@ public:
 
 	DLLEXPORT virtual float GetVolume() const;
 
+	DLLEXPORT virtual Maths::Vector3 GetCentroid() const;
+
 #pragma endregion
 
 #pragma region Overridden Intersection Methods

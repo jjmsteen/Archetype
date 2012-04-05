@@ -94,6 +94,12 @@ float BoundingFrustum::GetVolume() const
 	return 0.0f;
 }
 
+Maths::Vector3 BoundingFrustum::GetCentroid() const
+{
+	throw "Unimplemented.";
+	return Maths::Vector3();
+}
+
 IntersectResult BoundingFrustum::Intersects(const BoundingVolume * bv)
 {
 	return BoundingVolume::Intersects(bv);

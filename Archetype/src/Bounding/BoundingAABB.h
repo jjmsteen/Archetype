@@ -51,6 +51,8 @@ public:
 
 	DLLEXPORT virtual float GetVolume() const;
 
+	DLLEXPORT virtual AT::Maths::Vector3 GetCentroid() const;
+
 #pragma endregion
 
 

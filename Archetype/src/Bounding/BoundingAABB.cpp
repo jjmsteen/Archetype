@@ -32,6 +32,12 @@ float BoundingAABB::GetVolume() const
 	return width * depth * height;
 }
 
+AT::Maths::Vector3 BoundingAABB::GetCentroid() const
+{
+	// Lerp from the min point to half way to the max point
+	return GetMin() + ( (GetMax() - GetMin()) * 0.5f);
+}
+
 IntersectResult BoundingAABB::Intersects(const BoundingVolume * bv)
 {
 	return BoundingVolume::Intersects(bv);
@@ -39,7 +45,74 @@ IntersectResult BoundingAABB::Intersects(const BoundingVolume * bv)
 
 bool BoundingAABB::DoesRayIntersect(const Ray & ray) const
 {
-	return false;
+	// Using Woo's method, described in 3D Math Primer for Graphics and Game Development
+	// p 307-8
+
+	bool lbIsRayInsideBox = true; 
+
+	Maths::Vector3 lRayDelta = ray.GetRayVector();
+
+	// Test the x axis
+	if (ray.GetOrigin().x < GetMin().x)
+	{
+		if ((GetMin().x - ray.GetOrigin().x) > lRayDelta.x)
+		{
+			return false;
+		}
+		lbIsRayInsideBox = false;
+	}
+	else if (ray.GetOrigin().x > GetMax().x)
+	{
+		if ( (GetMax().x - ray.GetOrigin().x) < lRayDelta.x)
+		{
+			return false;
+		}
+		lbIsRayInsideBox = false;
+	}
+
+	// Do an early out test
+	if (lbIsRayInsideBox) return true;
+
+	// Test the y axis
+	if (ray.GetOrigin().y < GetMin().y)
+	{
+		if ( (GetMin().y - ray.GetOrigin().y) > lRayDelta.y)
+		{
+			return false;
+		}
+		lbIsRayInsideBox = false;
+	}
+	else if (ray.GetOrigin().y > GetMax().y)
+	{
+		if ( (GetMax().y - ray.GetOrigin().y) < lRayDelta.y)
+		{
+			return false;
+		}
+		lbIsRayInsideBox = false;
+	}
+
+	// Do another early out test
+	if (lbIsRayInsideBox) return true;
+
+	// Test the z axis
+	if (ray.GetOrigin().z < GetMin().z)
+	{
+		if ( (GetMin().z - ray.GetOrigin().z) > lRayDelta.z)
+		{
+			return false;
+		}
+		lbIsRayInsideBox = false;
+	}
+	else if (ray.GetOrigin().z > GetMax().z)
+	{
+		if ( (GetMax().z - ray.GetOrigin().z) < lRayDelta.z)
+		{
+			return false;
+		}
+		lbIsRayInsideBox = false;
+	}
+
+	return true;
 }
 
 IntersectResult BoundingAABB::Intersects(const BoundingAABB & box) const
