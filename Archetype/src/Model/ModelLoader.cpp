@@ -136,7 +136,7 @@ Model3D * ModelLoader::LoadModel(const std::string & fileName)
 	m = new Model3D(meshes, materials);
 
 	// Load textures
-	for (int i = 0; i < materials.size(); i++)
+	for (unsigned int i = 0; i < materials.size(); i++)
 	{
         if (materials[i]->diffuseMap)
             materials[i]->diffuseMap->LoadTexture();
@@ -426,7 +426,7 @@ Mesh * ModelLoader::ReadObjectChunk(FILE * file, long chunkLength, std::vector<M
 			materialName = ReadName(file);
 
 			// Loop over the material input
-			for (int i = 0; i < materials.size(); i++)
+			for (unsigned int i = 0; i < materials.size(); i++)
 			{
 				// If the name matches
 				if (materialName == materials[i]->GetName())
@@ -463,7 +463,7 @@ Mesh * ModelLoader::ReadObjectChunk(FILE * file, long chunkLength, std::vector<M
 	// Generate texture coordinates if none exist in the file
 	if (texCoords.size() == 0)
 	{
-		for (int i = 0; i < vertPositions.size(); i++)
+		for (unsigned int i = 0; i < vertPositions.size(); i++)
 		{
 			texCoords.push_back(Maths::Vector2());
 		}
@@ -474,7 +474,7 @@ Mesh * ModelLoader::ReadObjectChunk(FILE * file, long chunkLength, std::vector<M
 	Maths::Vector3 minPos;
 
 	// Create a list of vertices
-	for (int i = 0; i < vertPositions.size(); i++)
+	for (unsigned int i = 0; i < vertPositions.size(); i++)
 	{
 		vertices.push_back(
 			new SimpleVertex(vertPositions[i], 
@@ -504,7 +504,7 @@ Mesh * ModelLoader::ReadObjectChunk(FILE * file, long chunkLength, std::vector<M
 	// Create a list of faces to calculate normals
 	std::vector<Face> normalFaces; 
 
-	for (int i = 0; i < faces.size(); i++)
+	for (unsigned int i = 0; i < faces.size(); i++)
 	{
 		Face f = Face(*(vertices[faces[i].v1]), 
 			*(vertices[faces[i].v2]), 
@@ -517,7 +517,7 @@ Mesh * ModelLoader::ReadObjectChunk(FILE * file, long chunkLength, std::vector<M
 	}
 
 	// Loop over the faces and calculate each vertex's normal
-	for (int i = 0; i < normalFaces.size(); i++)
+	for (unsigned int i = 0; i < normalFaces.size(); i++)
 	{
 		normalFaces[i].AssignNormals();
 	}
@@ -525,7 +525,7 @@ Mesh * ModelLoader::ReadObjectChunk(FILE * file, long chunkLength, std::vector<M
 	// Put the face indices into a list
 	std::vector<unsigned short> indices;
 
-	for (int i = 0; i < faces.size(); i++)
+	for (unsigned int i = 0; i < faces.size(); i++)
 	{
 		indices.push_back(faces[i].v1);
 		indices.push_back(faces[i].v2);
@@ -551,7 +551,7 @@ Mesh * ModelLoader::ReadObjectChunk(FILE * file, long chunkLength, std::vector<M
     }
 
 	// Free up some memory by deleting the now useless verts in the lists
-	for (int i = 0; i < vertices.size(); i++)
+	for (unsigned int i = 0; i < vertices.size(); i++)
 	{
 		delete vertices[i];
 	}

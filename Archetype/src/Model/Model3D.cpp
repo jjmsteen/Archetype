@@ -20,10 +20,10 @@ Model3D::Model3D(const std::vector<Mesh *> & meshes, const std::vector<Material*
 Model3D::~Model3D()
 {
     // Delete the meshes
-    for (int i = 0; i < meshes.size(); ++i)
+    for (unsigned int i = 0; i < meshes.size(); ++i)
         delete meshes[i];
     
     // Delete the no longer used materials
-	for (int i = 0; i < materials.size(); ++i)
+	for (unsigned int i = 0; i < materials.size(); ++i)
 		delete materials[i];
 }

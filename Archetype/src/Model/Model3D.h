@@ -49,6 +49,8 @@ public:
 #pragma region Getters and Setters
     
     DLLEXPORT const std::vector<Mesh*> & GetMeshes() const { return meshes; };
+
+	DLLEXPORT const std::vector<Material*> & GetMaterials() const { return materials; }
     
 #pragma endregion
 

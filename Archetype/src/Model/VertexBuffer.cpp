@@ -16,7 +16,7 @@ VertexBuffer::VertexBuffer(const std::vector<Vertex*> & vertexList, const std::v
 	vertices = new float[vertexCount * singleVertexLength];
 
 	// Loop over the vertex List and put the elements in the vertex buffer
-	for (int i = 0; i < vertexList.size(); i++)
+	for (unsigned int i = 0; i < vertexList.size(); i++)
 	{
 		// Get the current vertex
 		Vertex * currentElement = vertexList[i];
@@ -49,7 +49,7 @@ VertexBuffer::VertexBuffer(const std::vector<Vertex*> & vertexList, const std::v
 	indices = new unsigned short[indexList.size()];
 
 	// Loop over the index list
-	for (int i = 0; i < indexList.size(); i++)
+	for (unsigned int i = 0; i < indexList.size(); i++)
 	{
 		// Assign its value to the array
 		indices[i] = indexList[i];
@@ -65,7 +65,7 @@ VertexBuffer::VertexBuffer(const VertexBuffer & vb)
 	this->vertices = new float[vertexCount * singleVertexLength];
 
 	// Loop over the array and copy
-	for (int i = 0; i < vertexCount * singleVertexLength; i++)
+	for (unsigned int i = 0; i < vertexCount * singleVertexLength; i++)
 	{
 		this->vertices[i] = vb.vertices[i];
 	}
@@ -74,7 +74,7 @@ VertexBuffer::VertexBuffer(const VertexBuffer & vb)
 	this->indices = new unsigned short[indexCount];
 
 	// Loop over the array and copy
-	for (int i = 0; i < indexCount; i++)
+	for (unsigned int i = 0; i < indexCount; i++)
 	{
 		this->indices[i] = vb.indices[i];
 	}

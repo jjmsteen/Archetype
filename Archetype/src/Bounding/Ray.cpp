@@ -9,7 +9,6 @@ using namespace Bounding;
 Ray::Ray(const Maths::Vector3 & lOrigin, const Maths::Vector3 & lEnd)
 	: mOrigin(lOrigin), mEnd(lEnd)
 {
-	mEnd.Normalise();
 }
 
 

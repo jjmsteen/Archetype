@@ -86,7 +86,7 @@ Mesh * GeometryFactory::Sphere(float radius, unsigned int slices, unsigned int s
 	vertPositions.push_back(position);
 
 	// Add the first indices from the top of the sphere
-	for (int i = 0; i < slices; i++)
+	for (unsigned int i = 0; i < slices; i++)
 	{
 		indices.push_back(0);
 		indices.push_back((i + 1) % slices + 1);
@@ -95,7 +95,7 @@ Mesh * GeometryFactory::Sphere(float radius, unsigned int slices, unsigned int s
 
 	// Do one less stack than the count because the last is always a single point,
 	// similar to the top
-	for (int stackNumber = 0; stackNumber < stacks - 1; stackNumber++)
+	for (unsigned int stackNumber = 0; stackNumber < stacks - 1; stackNumber++)
 	{
 		// Apply the stack rotation (around the x axis)
 		position = Maths::Matrix4x4::Transform(stackRotation, position);
@@ -105,13 +105,13 @@ Mesh * GeometryFactory::Sphere(float radius, unsigned int slices, unsigned int s
 		Maths::Vector3 slicePosition(position);
 
 		// Loop through the slices
-		for (int sliceNumber = 0; sliceNumber < slices; sliceNumber++)
+		for (unsigned int sliceNumber = 0; sliceNumber < slices; sliceNumber++)
 		{
 			// Put the position into the list
 			vertPositions.push_back(slicePosition);
 
 			// Use a different routine for the final stack as it is irregular
-			if (stackNumber < stacks - 2)
+			if (stackNumber < stacks - 2U)
 			{
 				// Add the indices, six for each middle vert
 				// First triangle
@@ -143,7 +143,7 @@ Mesh * GeometryFactory::Sphere(float radius, unsigned int slices, unsigned int s
 	// Create a list for the vertices
 	std::vector<Vertex*> verts;
 
-	for (int i = 0; i < vertPositions.size(); i++)
+	for (unsigned int i = 0; i < vertPositions.size(); i++)
 	{
 		// The normal for a vertex is simply the vector from the origin to its 
 		// position, normalised, as this is a regular sphere
@@ -160,7 +160,7 @@ Mesh * GeometryFactory::Sphere(float radius, unsigned int slices, unsigned int s
 	vb.GenerateVertexBuffer();
 
 	// Delete the gumpf in the vertex list
-	for (int i = 0; i < verts.size(); i++) delete verts[i];
+	for (unsigned int i = 0; i < verts.size(); i++) delete verts[i];
 	
 	// That's all we need
 	Mesh * m = new Mesh("Sphere", Maths::Matrix4x4(), vb, new Bounding::BoundingSphere(Maths::Vector3(), radius));
@@ -201,7 +201,7 @@ Mesh * GeometryFactory::Cone(float height, float radius, unsigned int slices)
 	// Move the lateral position out by the radius
 	position.z += radius;
 
-	for (int sliceNum = 0; sliceNum < slices; sliceNum++)
+	for (unsigned int sliceNum = 0; sliceNum < slices; sliceNum++)
 	{
 		// Add the position
 		vertPositions.push_back(position);
@@ -220,7 +220,7 @@ Mesh * GeometryFactory::Cone(float height, float radius, unsigned int slices)
 	vertPositions.push_back(position);
 
 	// Add the indices
-	for (int sliceNum = 0; sliceNum < slices; sliceNum++)
+	for (unsigned int sliceNum = 0; sliceNum < slices; sliceNum++)
 	{
 		indices.push_back(sliceNum + 1);
 		indices.push_back(vertPositions.size() - 1);
@@ -236,7 +236,7 @@ Mesh * GeometryFactory::Cone(float height, float radius, unsigned int slices)
 	Maths::Vector3 maxPos;
 
 	// Create the vertices
-	for (int i = 0; i < vertPositions.size(); i++)
+	for (unsigned int i = 0; i < vertPositions.size(); i++)
 	{
 		pnVerts.push_back(new PosNormVertex(vertPositions[i], Maths::Vector3(0,1,0)));
 		verts.push_back(pnVerts[i]);
@@ -252,7 +252,7 @@ Mesh * GeometryFactory::Cone(float height, float radius, unsigned int slices)
 	}
 
 	// Create faces and calculate normals
-	for (int i = 0; i < indices.size() / 3; i++)
+	for (unsigned int i = 0; i < indices.size() / 3; i++)
 	{
 		faces.push_back(Face(*pnVerts[indices[i * 3]], 
 			*pnVerts[indices[i * 3 + 1]],
@@ -272,7 +272,7 @@ Mesh * GeometryFactory::Cone(float height, float radius, unsigned int slices)
 	vb.GenerateVertexBuffer();
 
 	// Delete the gumpf in the vertex list
-	for (int i = 0; i < verts.size(); i++) delete verts[i];
+	for (unsigned int i = 0; i < verts.size(); i++) delete verts[i];
 
 	Mesh * m = new Mesh("Cone", Maths::Matrix4x4(), vb, new Bounding::BoundingAABB(minPos, maxPos));
 
@@ -312,7 +312,7 @@ Mesh * GeometryFactory::TexturedQuad(float width, float height, bool twoSided)
     }
     
     // Create vertex objects
-    for (int i = 0; i < vertexPositions.size(); ++i)
+    for (unsigned int i = 0; i < vertexPositions.size(); ++i)
         vertices.push_back(new SimpleVertex(vertexPositions[i], texCoords[i], normals[i]));
     
     // Create indices
